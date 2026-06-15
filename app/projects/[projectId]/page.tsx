@@ -1,5 +1,6 @@
 "use client";
 
+import { use } from "react";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { useState } from "react";
@@ -43,12 +44,13 @@ function InfoRow({ label, value, highlight }: { label: string; value?: React.Rea
   );
 }
 
-export default function ProjectDetailPage({ params }: { params: { projectId: string } }) {
+export default function ProjectDetailPage({ params }: { params: Promise<{ projectId: string }> }) {
+  const { projectId } = use(params);
   const projects = useAppStore((s) => s.projects);
   const builders = useAppStore((s) => s.builders);
   const [activeTab, setActiveTab] = useState<Tab>("Overview");
 
-  const project = projects.find((p) => p.projectId === params.projectId);
+  const project = projects.find((p) => p.projectId === projectId);
   if (!project) notFound();
 
   const builder = builders.find((b) => b.builderId === project.builderId);
