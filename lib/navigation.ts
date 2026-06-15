@@ -1,83 +1,110 @@
 import {
-  LayoutDashboard,
+  Home,
   Building2,
   GitCompare,
   Map,
-  ClipboardList,
-  TrendingUp,
+  ClipboardCheck,
+  Wallet,
   CreditCard,
   FileText,
-  Bell,
+  CheckSquare,
+  GraduationCap,
   Settings,
   type LucideIcon,
 } from "lucide-react";
+
+export type NavSection = "Explore" | "Track" | "Help";
 
 export type NavItem = {
   label: string;
   href: string;
   icon: LucideIcon;
   description: string;
+  section: NavSection;
 };
 
+/**
+ * Navigation rewritten in plain language for first-time buyers.
+ * Routes are unchanged so nothing breaks — only the words people read.
+ */
 export const NAV_ITEMS: NavItem[] = [
   {
-    label: "Dashboard",
+    label: "Home",
     href: "/",
-    icon: LayoutDashboard,
-    description: "Master overview of all evaluations",
+    icon: Home,
+    description: "Your journey and what to do next",
+    section: "Explore",
   },
   {
-    label: "Projects",
+    label: "My Properties",
     href: "/projects",
     icon: Building2,
-    description: "All tracked real estate projects",
+    description: "Every home, villa or plot you're looking at",
+    section: "Explore",
   },
   {
     label: "Compare",
     href: "/compare",
     icon: GitCompare,
-    description: "Side-by-side unit comparison",
+    description: "See your options side by side",
+    section: "Explore",
   },
   {
-    label: "Map",
+    label: "On the Map",
     href: "/map",
     icon: Map,
-    description: "Project locations and commute analysis",
+    description: "Where everything is, and how far",
+    section: "Explore",
   },
   {
-    label: "Site Visits",
+    label: "Visits",
     href: "/site-visits",
-    icon: ClipboardList,
-    description: "Structured site visit checklists",
+    icon: ClipboardCheck,
+    description: "Plan visits and remember what you saw",
+    section: "Track",
   },
   {
-    label: "Financials",
+    label: "True Cost",
     href: "/financials",
-    icon: TrendingUp,
-    description: "True cost and financial analysis",
+    icon: Wallet,
+    description: "The real, all-in price of each home",
+    section: "Track",
   },
   {
     label: "Payments",
     href: "/payments",
     icon: CreditCard,
-    description: "Payment milestone tracking",
+    description: "What's due and when",
+    section: "Track",
   },
   {
     label: "Documents",
     href: "/documents",
     icon: FileText,
-    description: "Legal, RERA, and builder documents",
+    description: "Brochures, approvals and paperwork",
+    section: "Track",
   },
   {
-    label: "Follow-Ups",
+    label: "My Tasks",
     href: "/follow-ups",
-    icon: Bell,
-    description: "Pending actions and builder follow-ups",
+    icon: CheckSquare,
+    description: "Questions to ask and things to do",
+    section: "Track",
+  },
+  {
+    label: "Learn",
+    href: "/learn",
+    icon: GraduationCap,
+    description: "Home-buying basics, in plain English",
+    section: "Help",
   },
   {
     label: "Settings",
     href: "/settings",
     icon: Settings,
-    description: "App preferences and data management",
+    description: "Preferences and your data",
+    section: "Help",
   },
 ];
+
+export const NAV_SECTIONS: NavSection[] = ["Explore", "Track", "Help"];

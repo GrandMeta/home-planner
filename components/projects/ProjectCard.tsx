@@ -1,13 +1,14 @@
 "use client";
 
 import Link from "next/link";
-import { MapPin, BedDouble, CheckCircle2, AlertTriangle, Calendar, TrendingUp } from "lucide-react";
+import { MapPin, BedDouble, CheckCircle2, AlertTriangle, Calendar } from "lucide-react";
 import type { Project } from "@/types";
-import { StatusBadge, PurposeBadge, RiskBadge } from "@/components/ui/Badge";
+import { StatusBadge, PurposeBadge } from "@/components/ui/Badge";
 import { BuilderLogo } from "@/components/ui/BuilderLogo";
 import { formatINR, formatMonthYear, formatPerSqft } from "@/lib/currency";
 import { cn } from "@/lib/utils";
 import { useAppStore } from "@/store/useAppStore";
+import { getPropertyConfig } from "@/lib/glossary";
 
 interface ProjectCardProps {
   project: Project;
@@ -17,6 +18,8 @@ interface ProjectCardProps {
 export function ProjectCard({ project, className }: ProjectCardProps) {
   const builders = useAppStore((s) => s.builders);
   const builder = builders.find((b) => b.builderId === project.builderId);
+  const cfg = getPropertyConfig(project.projectType);
+  const TypeIcon = cfg.icon;
 
   const heroImage = project.images.find((i) => i.isCover) ?? project.images[0];
   const hasMissingDocs = !project.brochureCollected || !project.reraCertificateCollected;
@@ -55,6 +58,13 @@ export function ProjectCard({ project, className }: ProjectCardProps) {
 
         {/* Top badges */}
         <div className="absolute top-3 left-3 flex gap-1.5 flex-wrap">
+          <span
+            className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-semibold text-white shadow"
+            style={{ backgroundColor: cfg.accent }}
+          >
+            <TypeIcon className="w-3 h-3" />
+            {cfg.noun}
+          </span>
           <StatusBadge status={project.projectStatus} />
           <PurposeBadge purpose={project.projectPurpose} />
         </div>
@@ -113,8 +123,8 @@ export function ProjectCard({ project, className }: ProjectCardProps) {
           </span>
         </div>
 
-        {/* BHK tags */}
-        {project.availableBHKs.length > 0 && (
+        {/* BHK tags (apartments & villas only) */}
+        {cfg.hasBHK && project.availableBHKs.length > 0 && (
           <div className="flex gap-1.5 flex-wrap">
             {project.availableBHKs.map((bhk) => (
               <span
@@ -128,26 +138,31 @@ export function ProjectCard({ project, className }: ProjectCardProps) {
           </div>
         )}
 
-        {/* Stats row */}
+        {/* Stats row — adapts to the property type */}
         <div className="grid grid-cols-3 gap-2 pt-1 border-t border-slate-100">
-          <div className="text-center">
-            <p className="text-[10px] text-slate-400 uppercase tracking-wide">Towers</p>
-            <p className="text-xs font-semibold text-slate-700">
-              {project.totalTowers ?? "—"}
-            </p>
-          </div>
-          <div className="text-center border-x border-slate-100">
-            <p className="text-[10px] text-slate-400 uppercase tracking-wide">Units</p>
-            <p className="text-xs font-semibold text-slate-700">
-              {project.totalUnits ?? "—"}
-            </p>
-          </div>
-          <div className="text-center">
-            <p className="text-[10px] text-slate-400 uppercase tracking-wide">Open</p>
-            <p className="text-xs font-semibold text-slate-700">
-              {project.openSpacePercentage ? `${project.openSpacePercentage}%` : "—"}
-            </p>
-          </div>
+          {(cfg.type === "Plot"
+            ? [
+                { label: "Land", value: project.totalLandAreaAcres ? `${project.totalLandAreaAcres} ac` : "—" },
+                { label: "Plots", value: project.totalUnits ?? "—" },
+                { label: "Open", value: project.openSpacePercentage ? `${project.openSpacePercentage}%` : "—" },
+              ]
+            : cfg.type === "Villa"
+            ? [
+                { label: "Land", value: project.totalLandAreaAcres ? `${project.totalLandAreaAcres} ac` : "—" },
+                { label: "Homes", value: project.totalUnits ?? "—" },
+                { label: "Open", value: project.openSpacePercentage ? `${project.openSpacePercentage}%` : "—" },
+              ]
+            : [
+                { label: "Towers", value: project.totalTowers ?? "—" },
+                { label: "Units", value: project.totalUnits ?? "—" },
+                { label: "Open", value: project.openSpacePercentage ? `${project.openSpacePercentage}%` : "—" },
+              ]
+          ).map((s, i) => (
+            <div key={s.label} className={cn("text-center", i === 1 && "border-x border-slate-100")}>
+              <p className="text-[10px] text-slate-400 uppercase tracking-wide">{s.label}</p>
+              <p className="text-xs font-semibold text-slate-700">{s.value}</p>
+            </div>
+          ))}
         </div>
 
         {/* Possession row */}
