@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { NAV_ITEMS } from "@/lib/navigation";
 import { cn } from "@/lib/utils";
-import { Home, Menu, X } from "lucide-react";
+import { Menu, X } from "lucide-react";
 
 export function MobileNav() {
   const [open, setOpen] = useState(false);
@@ -15,14 +15,14 @@ export function MobileNav() {
     <>
       {/* Mobile topbar */}
       <header className="flex items-center justify-between px-4 py-3 border-b bg-white border-[var(--border)] md:hidden sticky top-0 z-40">
-        <div className="flex items-center gap-2">
-          <div className="flex items-center justify-center w-7 h-7 rounded-md bg-[var(--primary)]">
-            <Home className="w-4 h-4 text-white" />
+        <Link href="/" className="flex items-center gap-2">
+          <div className="flex items-center justify-center w-7 h-7 rounded-lg bg-gradient-to-br from-[var(--primary)] to-cyan-500">
+            <span className="text-white font-bold text-xs">N</span>
           </div>
-          <span className="text-sm font-semibold text-[var(--text-primary)]">
-            Home Decision Cockpit
+          <span className="text-sm font-bold text-[var(--text-primary)]">
+            Nest
           </span>
-        </div>
+        </Link>
         <button
           onClick={() => setOpen(!open)}
           className="p-1 rounded-md text-[var(--text-secondary)] hover:bg-[var(--surface-muted)]"
@@ -43,12 +43,10 @@ export function MobileNav() {
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex items-center gap-2 px-5 py-4 border-b border-[var(--border)]">
-              <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-[var(--primary)]">
-                <Home className="w-4 h-4 text-white" />
+              <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-gradient-to-br from-[var(--primary)] to-cyan-500">
+                <span className="text-white font-bold text-sm">N</span>
               </div>
-              <p className="text-sm font-semibold text-[var(--text-primary)]">
-                Home Decision Cockpit
-              </p>
+              <p className="text-sm font-bold text-[var(--text-primary)]">Nest</p>
             </div>
             <div className="flex flex-col gap-0.5 px-3 py-3 overflow-y-auto flex-1">
               {NAV_ITEMS.map((item) => {
