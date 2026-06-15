@@ -5,7 +5,7 @@ import { Building2, Plus, Search } from "lucide-react";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { ProjectCard } from "@/components/projects/ProjectCard";
 import { AddPropertyWizard } from "@/components/projects/AddPropertyWizard";
-import { useAppStore } from "@/store/useAppStore";
+import { useAppStore } from "@/components/providers/SupabaseProvider";
 import type { ProjectType, ProjectPurpose, CityZone } from "@/types";
 import { cn } from "@/lib/utils";
 

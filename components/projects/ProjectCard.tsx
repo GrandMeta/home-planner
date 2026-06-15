@@ -7,7 +7,7 @@ import { StatusBadge, PurposeBadge } from "@/components/ui/Badge";
 import { BuilderLogo } from "@/components/ui/BuilderLogo";
 import { formatINR, formatMonthYear, formatPerSqft } from "@/lib/currency";
 import { cn } from "@/lib/utils";
-import { useAppStore } from "@/store/useAppStore";
+import { useAppStore } from "@/components/providers/SupabaseProvider";
 import { getPropertyConfig } from "@/lib/glossary";
 
 interface ProjectCardProps {
