@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { X, ArrowLeft, ArrowRight, Check, MapPin, Sparkles } from "lucide-react";
-import { useAppStore } from "@/store/useAppStore";
+import { useAppStore } from "@/components/providers/SupabaseProvider";
 import { PROPERTY_TYPES, getPropertyConfig } from "@/lib/glossary";
 import type {
   Project,

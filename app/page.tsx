@@ -16,7 +16,7 @@ import {
   Home as HomeIcon,
   Trees,
 } from "lucide-react";
-import { useAppStore } from "@/store/useAppStore";
+import { useAppStore } from "@/components/providers/SupabaseProvider";
 import { ProjectCard } from "@/components/projects/ProjectCard";
 import { AddPropertyWizard } from "@/components/projects/AddPropertyWizard";
 import {

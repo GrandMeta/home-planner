@@ -8,7 +8,7 @@ import {
   ArrowLeft, MapPin, CheckCircle2, AlertTriangle, Calendar,
   BedDouble, FileText, Phone, Globe, Play, Star, ChevronRight,
 } from "lucide-react";
-import { useAppStore } from "@/store/useAppStore";
+import { useAppStore } from "@/components/providers/SupabaseProvider";
 import { ImageGallery, FloorPlanGallery } from "@/components/projects/ImageGallery";
 import { BuilderLogo } from "@/components/ui/BuilderLogo";
 import { StatusBadge, PurposeBadge, RiskBadge } from "@/components/ui/Badge";
